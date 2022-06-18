@@ -14,6 +14,6 @@ defmodule HackerNewsAggregator.Ports.HackerNewsHandler do
   defp adapter(adapter) do
     :hacker_news_aggregator
     |> Application.get_env(:adapters)
-    |> get_in([:hacker_news_handler, adapter])
+    |> Keyword.get(adapter)
   end
 end
