@@ -3,9 +3,11 @@ defmodule HackerNewsAggregator.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     children = [HackerNewsAggregator.Genservers.StoriesUpdater]
 
-    Supervisor.start_link(children, name: HackerNewsAggregator.Supervisor)
+    opts = [strategy: :one_for_one, name: HackerNewsAggregator.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
