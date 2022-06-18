@@ -5,10 +5,10 @@ defmodule HackerNewsAggregator.Ports.HackerNewsHandler do
 
   alias HackerNewsAggregator.Models.Item
 
-  @callback top_stories() :: list(integer()) | term()
+  @callback top_stories() :: list(integer()) | {:error, term()}
   def top_stories(adapter \\ :http), do: adapter(adapter).top_stories()
 
-  @callback get_story(integer()) :: Item.t() | term()
+  @callback get_story(integer()) :: Item.t() | {:error, term()}
   def get_story(id, adapter \\ :http), do: adapter(adapter).get_story(id)
 
   defp adapter(adapter) do

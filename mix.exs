@@ -20,7 +20,8 @@ defmodule HackerNewsAggregator.MixProject do
   defp deps do
     [
       {:ecto, "~> 3.8.4"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:jason, "~> 1.2"}
     ]
   end
 end
