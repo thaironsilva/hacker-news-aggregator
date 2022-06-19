@@ -7,7 +7,6 @@ defmodule HackerNewsAggregatorWeb.ItemControllerTest do
   import Phoenix.ConnTest
 
   alias HackerNewsAggregator.Adapters.HTTPHackerNewsHandler
-  alias HackerNewsAggregatorWeb.Router.Helpers, as: Routes
 
   @endpoint HackerNewsAggregatorWeb.Endpoint
 
@@ -72,7 +71,7 @@ defmodule HackerNewsAggregatorWeb.ItemControllerTest do
     top_stories = HTTPHackerNewsHandler.top_stories()
 
     response = get(conn, "/api/v0/story?page=2")
-    assert ["11-20/50"] == get_resp_header(response, "content-range")
+    assert ["11-20/500"] == get_resp_header(response, "content-range")
 
     result_items = json_response(response, 200)
 

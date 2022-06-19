@@ -9,6 +9,7 @@ defmodule HackerNewsAggregatorWeb.Controllers.ItemController do
   require Logger
 
   @per_page 10
+  @total_stories 500
 
   def show(conn, %{"id" => id}) do
     case HackerNewsHandler.get_item(id) do
@@ -58,7 +59,7 @@ defmodule HackerNewsAggregatorWeb.Controllers.ItemController do
             |> Enum.map(&HackerNewsHandler.get_item(&1))
 
           conn
-          |> ControllerHelpers.put_content_range(page)
+          |> ControllerHelpers.put_content_range(page, @total_stories)
           |> put_status(200)
           |> put_view(ItemView)
           |> render("items.json", items: items)

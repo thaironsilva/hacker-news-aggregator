@@ -28,9 +28,9 @@ defmodule HackerNewsAggregatorWeb.ControllerHelpers do
     end
   end
 
-  @spec put_content_range(Conn.t(), integer()) :: Conn.t()
-  def put_content_range(conn, page) do
-    Conn.put_resp_header(conn, "content-range", "#{render_range(page)}/50")
+  @spec put_content_range(Conn.t(), integer(), integer()) :: Conn.t()
+  def put_content_range(conn, page, total) do
+    Conn.put_resp_header(conn, "content-range", "#{render_range(page)}/#{total}")
   end
 
   defp render_range(page), do: "#{page * 10 - 9}-#{page * 10}"

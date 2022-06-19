@@ -15,13 +15,7 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
 
   @impl true
   def init(_state) do
-    # state = get_top_stories()
-    # {:ok, state}
     {:ok, nil}
-  end
-
-  def update() do
-    GenServer.module_info(__MODULE__, :update)
   end
 
   def top_stories() do
@@ -30,21 +24,24 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
 
   @impl true
   def handle_info(:update, _state) do
+    stories = get_top_stories()
+    updated_at = :os.system_time()
     schedule_work()
 
-    {:noreply, nil}
+    {:noreply, {updated_at, stories}}
   end
 
   @impl true
   def handle_call(:top_stories, _from, nil) do
-    state = get_top_stories()
+    stories = get_top_stories()
+    updated_at = :os.system_time()
 
-    {:reply, state, state}
+    {:reply, stories, {updated_at, stories}}
   end
 
   @impl true
-  def handle_call(:top_stories, _from, state) do
-    {:reply, state, state}
+  def handle_call(:top_stories, _from, {_updated_at, stories} = state) do
+    {:reply, stories, state}
   end
 
   defp schedule_work() do
@@ -54,7 +51,7 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
   defp get_top_stories() do
     case HackerNewsHandler.top_stories() do
       {:error, _reason} -> nil
-      top_stories -> top_stories
+      top_stories -> Enum.slice(top_stories, 0..49)
     end
   end
 end
