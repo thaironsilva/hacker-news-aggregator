@@ -17,3 +17,11 @@ I didn't want to postpone even more testing, as I usually like to test as soon a
 so I created created the tests for the features I just described to make sure everything was working as I
 intended. I tried using Mox to mock the HTTP calls, but I wasn't working because it mocks behaviours and
 I just wanted to mock the HTTP call specifically, so Mock was good and simple enough as a solution.
+Now I was ready to make the APIs, but think I made a mistake trying to do it as minimalistic as possible,
+it took me much of my time to make everything work without relying on pre made phoenix project, it's not
+as good as would like it to be but I have to move on, there is still much to do.
+Since every object the hacker news send is a Item, I thought it would make sense to create a ItemController
+instead of a StoryController, for instance.
+I also took the liberty of assuming that when the exercise tells me to list the stories, it means the actual
+items, not the ids, but the API only fetches one at a time, so it would make the API really slow, and to make it more reliable it needs cache and even better would be to have a process that caches every top story once
+they're updated, but I'm not sure I'll have the time to do so.

@@ -22,7 +22,7 @@ defmodule HackerNewsAggregator.Adapters.HTTPHackerNewsHandler do
   end
 
   @impl true
-  def get_story(id) do
+  def get_item(id) do
     url = "#{url()}item/#{id}.json"
 
     case HTTPoison.get(url) do

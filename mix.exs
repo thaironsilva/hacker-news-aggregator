@@ -27,6 +27,9 @@ defmodule HackerNewsAggregator.MixProject do
       {:ecto, "~> 3.8.4"},
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.2"},
+      {:phoenix, "~> 1.6.5"},
+      {:phoenix_html, "~> 3.0"},
+      {:gettext, "~> 0.18"},
       {:mock, "~> 0.3.7", only: :test}
     ]
   end

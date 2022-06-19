@@ -5,7 +5,11 @@ defmodule HackerNewsAggregator.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [HackerNewsAggregator.Genservers.StoriesUpdater]
+    children = [
+      {Phoenix.PubSub, name: HackerNewsAggregator.PubSub},
+      HackerNewsAggregatorWeb.Endpoint,
+      HackerNewsAggregator.Genservers.StoriesUpdater
+    ]
 
     opts = [strategy: :one_for_one, name: HackerNewsAggregator.Supervisor]
     Supervisor.start_link(children, opts)

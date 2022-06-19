@@ -12,9 +12,9 @@ defmodule HackerNewsAggregator.Models.Item do
   @fields [:by, :descendants, :id, :kids, :score, :time, :title, :type, :url]
 
   embedded_schema do
+    field(:id, :integer)
     field(:by, :string)
     field(:descendants, :integer)
-    field(:id, :integer)
     field(:kids, {:array, :integer})
     field(:score, :integer)
     field(:time, :integer)

@@ -1,4 +1,5 @@
 .PHONY: prepare
 prepare:
-	mix compile
+	mix local.hex --force
 	mix deps.get
+	mix compile
