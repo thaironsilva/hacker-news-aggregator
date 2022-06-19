@@ -6,6 +6,7 @@ defmodule HackerNewsAggregatorWeb.ItemControllerTest do
   import Plug.Conn
   import Phoenix.ConnTest
 
+  alias HackerNewsAggregator.Adapters.HTTPHackerNewsHandler
   alias HackerNewsAggregatorWeb.Router.Helpers, as: Routes
 
   @endpoint HackerNewsAggregatorWeb.Endpoint
@@ -63,6 +64,21 @@ defmodule HackerNewsAggregatorWeb.ItemControllerTest do
                |> get("/api/v0/item/#{@id}")
                |> json_response(200)
     end
+  end
+
+  test "GET /api/v0/story", %{conn: conn} do
+    # TO-DO: create test with mock
+
+    top_stories = HTTPHackerNewsHandler.top_stories()
+
+    response = get(conn, "/api/v0/story?page=2")
+    assert ["11-20/50"] == get_resp_header(response, "content-range")
+
+    result_items = json_response(response, 200)
+
+    assert 10 = Enum.count(result_items)
+
+    assert Enum.slice(top_stories, 11..20) == Enum.map(result_items, & &1["id"])
   end
 
   defp render(item) do
