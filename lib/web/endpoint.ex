@@ -10,6 +10,8 @@ defmodule HackerNewsAggregatorWeb.Endpoint do
     signing_salt: "7wL/oq7e"
   ]
 
+  socket("/socket", HackerNewsAggregatorWeb.StorySocket)
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest

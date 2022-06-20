@@ -5,6 +5,7 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
   use GenServer
 
   alias HackerNewsAggregator.Ports.HackerNewsHandler
+  alias HackerNewsAggregatorWeb.Endpoint
 
   @update_interval 300_000
 
@@ -25,23 +26,22 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
   @impl true
   def handle_info(:update, _state) do
     stories = get_top_stories()
-    updated_at = :os.system_time()
+    Endpoint.broadcast!("story", "update", %{stories: stories})
     schedule_work()
 
-    {:noreply, {updated_at, stories}}
+    {:noreply, stories}
   end
 
   @impl true
   def handle_call(:top_stories, _from, nil) do
     stories = get_top_stories()
-    updated_at = :os.system_time()
 
-    {:reply, stories, {updated_at, stories}}
+    {:reply, stories, stories}
   end
 
   @impl true
-  def handle_call(:top_stories, _from, {_updated_at, stories} = state) do
-    {:reply, stories, state}
+  def handle_call(:top_stories, _from, state) do
+    {:reply, state, state}
   end
 
   defp schedule_work() do

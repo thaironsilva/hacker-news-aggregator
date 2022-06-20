@@ -1,4 +1,4 @@
-defmodule HackerNewsAggregatorWeb.ItemControllerTest do
+defmodule HackerNewsAggregatorWeb.Controllers.ItemControllerTest do
   @moduledoc false
   use ExUnit.Case, async: true
 
