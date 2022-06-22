@@ -9,6 +9,13 @@ PUBLIC APIs
 - WebSocket
     - Join the channel `stories` to receive 50 top stories every time it updates and send a `top_stories` message to receive the current top 50 stories.
 
+# How to use it
+To run locally, only Docker is needed.
+Run `make up` and the API will be available at `localhost:4000`.
+
+# test
+To run the tests, you'll need Elixir installed and run `make test`.
+
 # How I did it
 First feature I have to do is the hacker news API caller. Everything will depend on it. As the exercise stated that should be 2 types of connection, my first thought was to separate into to different adapters for the same port.
 I felt the need to create an Item module mainly for documentation purpose, but it also makes it more scalable. To make the exercise as minimal as possible I only created it with the Stories fields. I started with the HTTP adapter and used HTTPoison and Jason to implement the http calls.

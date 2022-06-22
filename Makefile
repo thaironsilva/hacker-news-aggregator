@@ -5,7 +5,7 @@ mix-deps:
 	mix compile
 
 .PHONY: up
-up:	down
+up:	down build
 	docker-compose -f docker-compose.yml up -d
 
 down:
@@ -26,3 +26,7 @@ docker-image:
 		--pull \
 		--build-arg MIX_ENV=prod \
 		.
+
+.PHONY: test
+test: mix-deps
+	mix test
