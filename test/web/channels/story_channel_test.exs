@@ -26,6 +26,8 @@ defmodule HackerNewsAggregatorWeb.Channels.StoryChannelTest do
       top_stories: fn ->
         @top_stories
       end do
+      require IEx
+      IEx.pry()
       ref = push(socket, "top_stories", nil)
 
       assert_reply(ref, :ok, @top_stories, 5_000)

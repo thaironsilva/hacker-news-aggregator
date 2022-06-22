@@ -5,7 +5,7 @@ defmodule HackerNewsAggregator.MixProject do
     [
       app: :hacker_news_aggregator,
       version: "0.1.0",
-      elixir: "~> 1.13",
+      elixir: "~> 1.13.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -25,11 +25,13 @@ defmodule HackerNewsAggregator.MixProject do
   defp deps do
     [
       {:ecto, "~> 3.8.4"},
+      {:ecto_sql, "~> 3.6"},
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.2"},
       {:phoenix, "~> 1.6.5"},
       {:phoenix_html, "~> 3.0"},
       {:gettext, "~> 0.18"},
+      {:plug_cowboy, "~> 2.5"},
       {:mock, "~> 0.3.7", only: :test}
     ]
   end
