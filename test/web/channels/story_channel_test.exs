@@ -16,7 +16,7 @@ defmodule HackerNewsAggregatorWeb.Channels.StoryChannelTest do
     {:ok, _, socket} =
       StorySocket
       |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(StoryChannel, "story")
+      |> subscribe_and_join(StoryChannel, "stories")
 
     %{socket: socket}
   end
@@ -26,8 +26,6 @@ defmodule HackerNewsAggregatorWeb.Channels.StoryChannelTest do
       top_stories: fn ->
         @top_stories
       end do
-      require IEx
-      IEx.pry()
       ref = push(socket, "top_stories", nil)
 
       assert_reply(ref, :ok, @top_stories, 5_000)

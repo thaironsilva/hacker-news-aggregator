@@ -6,7 +6,7 @@ defmodule HackerNewsAggregatorWeb.Controllers.ItemControllerTest do
   import Plug.Conn
   import Phoenix.ConnTest
 
-  alias HackerNewsAggregator.Adapters.HTTPHackerNewsHandler
+  alias HackerNewsAggregator.Adapters.HackerNewsHandler
 
   @endpoint HackerNewsAggregatorWeb.Endpoint
 
@@ -53,24 +53,24 @@ defmodule HackerNewsAggregatorWeb.Controllers.ItemControllerTest do
                            status_code: 200
                          }}
 
-  test "GET /api/v0/item/:id", %{conn: conn} do
+  test "GET /api/v0/items/:id", %{conn: conn} do
     with_mock HTTPoison,
       get: fn "https://hacker-news.firebaseio.com/v0/item/1.json" ->
         @get_item_response200
       end do
       assert render(@item) ==
                conn
-               |> get("/api/v0/item/#{@id}")
+               |> get("/api/v0/items/#{@id}")
                |> json_response(200)
     end
   end
 
-  test "GET /api/v0/story", %{conn: conn} do
+  test "GET /api/v0/stories", %{conn: conn} do
     # TO-DO: create test with mock
 
-    top_stories = HTTPHackerNewsHandler.top_stories()
+    top_stories = HackerNewsHandler.top_stories()
 
-    response = get(conn, "/api/v0/story?page=2")
+    response = get(conn, "/api/v0/stories?page=2")
     assert ["11-20/500"] == get_resp_header(response, "content-range")
 
     result_items = json_response(response, 200)

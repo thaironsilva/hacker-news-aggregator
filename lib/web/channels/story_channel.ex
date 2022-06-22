@@ -3,7 +3,7 @@ defmodule HackerNewsAggregatorWeb.Channels.StoryChannel do
 
   alias HackerNewsAggregator.Genservers.StoriesUpdater
 
-  def join("story", _message, socket) do
+  def join("stories", _message, socket) do
     {:ok, socket}
   end
 

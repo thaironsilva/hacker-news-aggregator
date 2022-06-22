@@ -1,4 +1,4 @@
-defmodule HackerNewsAggregator.Adapters.HTTPHackerNewsHandler do
+defmodule HackerNewsAggregator.Adapters.HackerNewsHandler do
   @doc """
   Behaviour for the hacker news API handler
   """

@@ -6,14 +6,14 @@ defmodule HackerNewsAggregator.Ports.HackerNewsHandler do
   alias HackerNewsAggregator.Models.Item
 
   @callback top_stories() :: list(integer()) | {:error, term()}
-  def top_stories(adapter \\ :http), do: adapter(adapter).top_stories()
+  def top_stories(), do: adapter().top_stories()
 
   @callback get_item(integer()) :: Item.t() | {:error, term()}
-  def get_item(id, adapter \\ :http), do: adapter(adapter).get_item(id)
+  def get_item(id), do: adapter().get_item(id)
 
-  defp adapter(adapter) do
+  defp adapter() do
     :hacker_news_aggregator
     |> Application.get_env(:adapters)
-    |> Keyword.get(adapter)
+    |> Keyword.get(:hacker_news_handler)
   end
 end

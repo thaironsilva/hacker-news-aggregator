@@ -1,5 +1,13 @@
 # hacker-news-aggregator
-An Aggregator that fetches data from Hacker News API
+Project that provides integration with the Hacker News API
+
+PUBLIC APIs
+- /api/v0/stories
+    - Lists stories paginated 10 by 10 and accepts `page` as a query param. Pagination information is sent through resp_header formatted as `from-to/total_stories`.
+- /api/v0/items/:id
+    - Get a Story by id
+- WebSocket
+    - Join the channel `stories` to receive 50 top stories every time it updates and send a `top_stories` message to receive the current top 50 stories.
 
 # How I did it
 First feature I have to do is the hacker news API caller. Everything will depend on it. As the exercise stated that should be 2 types of connection, my first thought was to separate into to different adapters for the same port.
@@ -12,4 +20,8 @@ Since every object the hacker news send is a Item, I thought it would make sense
 I also took the liberty of assuming that when the exercise tells me to list the stories, it means the actual items, not the ids, but the API only fetches one at a time, so it would make the API really slow, and to make it more reliable it needs cache and even better would be to have a process that caches every top story once they're updated, but I'm not sure I'll have the time to do so.
 On the list paginated stories endpoints I had to assume a few things. For pagination params, as page size was pre determined, I choose to pass "page" as a parameter and pagination data as a header content in the response.
 I couldn't think of an easy way to test this feature using Mock, which made me regret a bit this decision, so I postponed it, being satisfied for now since the test passed successfully, but it depends on the hacker news API availability, which is really not optimal.
-To create the WebSocket Endpoint I used Phoenix Channel. It made sense to do so since I was already using Phoenix and using channel seemed simple enough. When I make build a Phoenix application using Docker I will be able to use it for both purposes. And that's what I'll do next.
+To create the WebSocket Endpoint I used Phoenix Channel. It made sense to do so since I was already using Phoenix and using channel seemed simple enough. When I make build a Phoenix application using Docker I will be able to use it for both purposes.
+Since the WebSocket api sends 50 stories at a time, I thought it would be too slow to send the story items, so
+in this case I choose to do send only the ids.
+It took me too long to realize that my approach on the http adapter was unnecessary, so I went back to refator it. I'll keep the behaviour and adapter implementation because I still think it's good practice, but I'll make the code more legible.
+Another mistake I did was making the tests intermittent, I still have not figured it out.

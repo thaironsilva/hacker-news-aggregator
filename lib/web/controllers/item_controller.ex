@@ -37,7 +37,7 @@ defmodule HackerNewsAggregatorWeb.Controllers.ItemController do
     end
   end
 
-  def list_story(conn, params) do
+  def list_stories(conn, params) do
     with {:ok, page} <- ControllerHelpers.integer_parser(params["page"]),
          {:ok, page} <- ControllerHelpers.validate_page(page) do
       case HackerNewsHandler.top_stories() do

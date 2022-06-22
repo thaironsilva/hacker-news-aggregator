@@ -13,7 +13,7 @@ defmodule HackerNewsAggregatorWeb.Router do
   scope "/api/v0" do
     pipe_through(:api)
 
-    get("/item/:id", ItemController, :show)
-    get("/story", ItemController, :list_story)
+    get("/items/:id", ItemController, :show)
+    get("/stories", ItemController, :list_stories)
   end
 end

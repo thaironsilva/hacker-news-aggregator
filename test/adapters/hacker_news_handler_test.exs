@@ -3,7 +3,7 @@ defmodule HackerNewsAggregator.Adapters.HackerNewsHandlerTest do
 
   import Mock
 
-  alias HackerNewsAggregator.Adapters.HTTPHackerNewsHandler
+  alias HackerNewsAggregator.Adapters.HackerNewsHandler
 
   @top_stories Enum.map(1..50, & &1)
   @top_stories_response200 {:ok,
@@ -76,7 +76,7 @@ defmodule HackerNewsAggregator.Adapters.HackerNewsHandlerTest do
       get: fn "https://hacker-news.firebaseio.com/v0/topstories.json" ->
         @top_stories_response200
       end do
-      assert @top_stories == HTTPHackerNewsHandler.top_stories()
+      assert @top_stories == HackerNewsHandler.top_stories()
     end
   end
 
@@ -95,7 +95,7 @@ defmodule HackerNewsAggregator.Adapters.HackerNewsHandlerTest do
                title: "Y Combinator",
                type: "story",
                url: "http://ycombinator.com"
-             } = HTTPHackerNewsHandler.get_item(1)
+             } = HackerNewsHandler.get_item(1)
     end
   end
 end

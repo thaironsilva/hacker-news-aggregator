@@ -24,12 +24,16 @@ defmodule HackerNewsAggregator.Genservers.StoriesUpdater do
   end
 
   @impl true
-  def handle_info(:update, _state) do
-    stories = get_top_stories()
-    Endpoint.broadcast!("story", "update", %{stories: stories})
+  def handle_info(:update, stories) do
+    new_stories = get_top_stories()
+
+    if new_stories == stories do
+      Endpoint.broadcast!("stories", "update", stories)
+    end
+
     schedule_work()
 
-    {:noreply, stories}
+    {:noreply, new_stories}
   end
 
   @impl true
